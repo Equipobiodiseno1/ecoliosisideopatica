@@ -1,1 +1,1 @@
-# ecoliosisideopatica
+# ecoliosisidiopatica
