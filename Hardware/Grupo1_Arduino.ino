@@ -5,39 +5,58 @@ SoftwareSerial miBT(10, 11);
 int analogValor = 0; 
 float voltaje = 0; 
 char DATO = 0; 
-int MOTOR1= 3;
-int MOTOR2= 4;
-int MOTOR3 = 5;
-int MOTOR4 = 6;
-int MOTOR5 = 7;
-int MOTOR6 = 8;
+#define PWM1 3;
+#define PWM2 4;
+#define PWM3 5;
+#define PWM4 6;
+#define PWM5 7;
+#define PWM6 8;
+int FRECUENCIA;
 void setup(){
   Serial.begin(9600);   
   Serial.println("Listo");  
   miBT.begin(38400);  
-  pinMode(MOTOR1, OUTPUT);
-  pinMode(MOTOR2, OUTPUT);
-  pinMode(MOTOR3, OUTPUT);
-  pinMode(MOTOR4, OUTPUT);
-  pinMode(MOTOR5, OUTPUT);
-  pinMode(MOTOR6, OUTPUT); 
+  pinMode(PWM1, OUTPUT);
+  pinMode(PWM2, OUTPUT);
+  pinMode(PWM3, OUTPUT);
+  pinMode(PWM4, OUTPUT);
+  pinMode(PWM5, OUTPUT);
+  pinMode(PWM6, OUTPUT); 
 }
 
 void loop(){
 analogValor = analogRead(ANALOGLIPO);
 voltaje = 0.0048*analogValor; 
+for (FRECUENCIA = 0; FRECUENCIA < 181; FRECUENCIA++){
+     analogWrite(PWM1, FRECUENCIA);
+     analogWrite(PWM2, FRECUENCIA);
+     analogWrite(PWM3, FRECUENCIA);
+     analogWrite(PWM4, FRECUENCIA);
+     analogWrite(PWM5, FRECUENCIA);
+     analogWrite(PWM6, FRECUENCIA);
+     delay(25);
+    }
+for (FRECUENCIA = 180; FRECUENCIA >= 0; FRECUENCIA--){
+     analogWrite(PWM1, FRECUENCIA);
+     analogWrite(PWM2, FRECUENCIA);
+     analogWrite(PWM3, FRECUENCIA);
+     analogWrite(PWM4, FRECUENCIA);
+     analogWrite(PWM5, FRECUENCIA);
+     analogWrite(PWM6, FRECUENCIA);
+     delay(25);
+    }
 if (miBT.available()){       
    DATO = miBT.read();
    if(DATO == '2'){
     Serial.println((voltaje/10)*100);
    }
-   if(DATO == '1'){
-     digitalWrite(MOTOR1, !digitalRead(MOTOR1));
-     digitalWrite(MOTOR2, !digitalRead(MOTOR2));
-     digitalWrite(MOTOR3, !digitalRead(MOTOR3));
-     digitalWrite(MOTOR4, !digitalRead(MOTOR4));
-     digitalWrite(MOTOR5, !digitalRead(MOTOR5));
-     digitalWrite(MOTOR6, !digitalRead(MOTOR6));
+   else if(DATO == '1'){
+     analogWrite(PWM1, !analogRead(PWM1));
+     analogWrite(PWM2, !analogRead(PWM2));
+     analogWrite(PWM3, !analogRead(PWM3));
+     analogWrite(PWM4, !analogRead(PWM4));
+     analogWrite(PWM5, !analogRead(PWM5));
+     analogWrite(PWM6, !analogRead(PWM6));
    }
    
 }
