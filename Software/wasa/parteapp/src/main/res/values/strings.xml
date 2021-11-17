@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Wasa</string>
+
+    <string name="button_temp">Nuevo tratamiento</string>
+
+    <string name="button_calendario">Calendario</string>
+
+
+
+</resources>
